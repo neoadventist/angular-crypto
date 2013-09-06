@@ -18,6 +18,6 @@ app.directive('transLation', function() {
 				}
 			}
 		},
-		template: '<div><span style="display:inline; font-size:32px; font-weight:bold;">{{letter.original}}</span><span style="display:inline; font-size:32px; font-weight:bold;">&#8596;</span><input ng-model="letter.translated" style="top: -7px; position: relative; display:inline; font-size:32px; font-weight:bold; border: 0px solid #000000; width:30px;" ng-change="translate(letter.original,letter.translated)" maxlength="1" /></div>'
+		templateUrl: 'views/directives/translate.html'
     }
 });
