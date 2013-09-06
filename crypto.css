@@ -1,0 +1,12 @@
+.message{
+font-size:30px;
+color:green;
+
+}
+.translation-input{
+top: -7px; position: relative; display:inline; font-size:32px; font-weight:bold; border: 0px solid #000000; width:30px;
+}
+.translation{
+display:inline; font-size:32px; font-weight:bold;
+
+}
