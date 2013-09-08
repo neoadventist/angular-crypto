@@ -67,10 +67,10 @@ app.directive('asciiHex', function() {
     }
 });
 
-app.directive('hexGrid', function() {
+app.directive('asciihexTable', function() {
     return {
 		scope: {
-			message: '='
+			p: '='
         },
         controller: function ($scope, $element, $attrs, $location) {
 
@@ -78,17 +78,36 @@ app.directive('hexGrid', function() {
         replace: true,
 		restrict: 'E',
 		link: function(scope, element, attrs) {
-			scope.grid = [];
-			count =0;
-			for(i=0;i<4;i++){
-				row = [];
-				for(k=0;k<4;k++){
-				row[k]=scope.message[count];
-				count++;
+
+		},
+		template: '<div><div ng-repeat="i in p"><div ascii-hex ascii="i.ascii" hex="i.hex" /><div></div></div>'
+    }
+});
+
+app.directive('hexGrid', function() {
+    return {
+		scope: {
+			hexobj: '='
+        },
+        controller: function ($scope, $element, $attrs, $location) {
+
+        },
+        replace: true,
+		restrict: 'E',
+		link: function(scope, element, attrs) {
+			scope.$watch('hexobj',function(){
+				scope.grid = [];
+				count =0;
+				for(i=0;i<4;i++){
+					row = [];
+					for(k=0;k<4;k++){
+						//if the letter does not exist then don't add it to the row, but place a dummy value in its place
+						row[k]= typeof scope.hexobj[count] =="undefined" ?  {ascii:"undefined",hex:"00"} : scope.hexobj[count] ; 
+						count++;
+					}
+					scope.grid[i]=row;
 				}
-				scope.grid[i]=row;
-			}
-				console.log(scope.grid);
+			},true);
 		},
 		templateUrl: 'views/directives/hex-grid.html'
     }
