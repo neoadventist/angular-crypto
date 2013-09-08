@@ -96,7 +96,7 @@ app.directive('hexGrid', function() {
 		restrict: 'E',
 		link: function(scope, element, attrs) {
 			scope.$watch('hexobj',function(){
-				scope.grid = [];
+				blockmessage = [];
 				count =0;
 				for(i=0;i<4;i++){
 					row = [];
@@ -105,7 +105,15 @@ app.directive('hexGrid', function() {
 						row[k]= typeof scope.hexobj[count] =="undefined" ?  {ascii:"undefined",hex:"00"} : scope.hexobj[count] ; 
 						count++;
 					}
-					scope.grid[i]=row;
+					blockmessage[i]=row;
+				}
+				//transpose
+				scope.grid = [];
+				for(m=0;m<4;m++){
+					scope.grid[m] = [];
+					for(n=0;n<4;n++){
+						scope.grid[m][n]=blockmessage[n][m];	
+					}				
 				}
 			},true);
 		},
