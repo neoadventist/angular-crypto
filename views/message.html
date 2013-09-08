@@ -4,9 +4,10 @@ The document <a href="http://www.moserware.com/2009/09/stick-figure-guide-to-adv
 <hr/>
 <input type="text" ng-model="message" class="message span12" maxlength="16" ng-change="process();" />
 
+
 <div ng-repeat="i in m">
-	<!--
-	<div trans-lation letter="i" message="m" /><div>
-	!-->
 	<div ascii-hex ascii="i.ascii" hex="i.hex" /><div>
 </div>
+
+<hex-grid message="m"></hex-grid>
+

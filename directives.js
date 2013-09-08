@@ -67,3 +67,32 @@ app.directive('asciiHex', function() {
     }
 });
 
+app.directive('hexGrid', function() {
+    return {
+		scope: {
+			message: '='
+        },
+        controller: function ($scope, $element, $attrs, $location) {
+
+        },
+        replace: true,
+		restrict: 'E',
+		link: function(scope, element, attrs) {
+			scope.grid = [];
+			count =0;
+			for(i=0;i<4;i++){
+				row = [];
+				for(k=0;k<4;k++){
+				row[k]=scope.message[count];
+				count++;
+				}
+				scope.grid[i]=row;
+			}
+				console.log(scope.grid);
+		},
+		templateUrl: 'views/directives/hex-grid.html'
+    }
+});
+
+
+
