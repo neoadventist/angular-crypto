@@ -49,3 +49,21 @@ app.directive('transLation', function() {
 		templateUrl: 'views/directives/translate.html'
     }
 });
+app.directive('asciiHex', function() {
+    return {
+		scope: {
+			ascii: '=',
+			hex: '='
+        },
+        controller: function ($scope, $element, $attrs, $location) {
+
+        },
+        replace: true,
+		restrict: 'A',
+		link: function(scope, element, attrs) {
+				
+		},
+		templateUrl: 'views/directives/ascii-hex.html'
+    }
+});
+
