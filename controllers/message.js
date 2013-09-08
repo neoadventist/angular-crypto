@@ -2,9 +2,11 @@ app.controller('message', function ($scope, $timeout, $filter) {
 	$scope.header="Message!!";
 	
 	var asciiToHex = function(ascii){
-		hex = ascii.charCodeAt(0).toString(16);
+		return ascii.charCodeAt(0).toString(16);
+	}
 	
-		return hex;
+	var hexToascii = function(hex){
+		return String.fromCharCode(parseInt(n, 16));
 	}
 	
 	
