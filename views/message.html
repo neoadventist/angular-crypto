@@ -4,11 +4,13 @@ The document <a href="http://www.moserware.com/2009/09/stick-figure-guide-to-adv
 <hr/>
 <input type="text" ng-model="message" class="message span12" maxlength="16" ng-change="process();" />
 
-
-
-<asciihex-Table p="m"></asciihex-Table>
-
-
-<hex-grid hexobj="m"></hex-grid>
-
-
+<div class="row-fluid">
+	<div class="span4">
+		<h2>ASCII-HEX Table</h2>
+		<asciihex-Table p="m"></asciihex-Table>
+	</div>
+	<div class="span8">
+		<h2>Hex Grid With Padding</h2>
+		<hex-grid hexobj="m"></hex-grid>
+	</div>
+</div>
