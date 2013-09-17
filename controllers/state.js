@@ -1,6 +1,6 @@
 app.controller('state', function ($scope, $timeout, $filter) {
 	$scope.header="Message!!";
-	
+	$scope.ok="OK";	
 	var asciiToHex = function(ascii){
 		return ascii.charCodeAt(0).toString(16);
 	}

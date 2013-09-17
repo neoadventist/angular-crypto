@@ -1,1 +1,13 @@
 <h1>{{header}}</h1>
+<input type="text" ng-model="keyPlaintext" class="message span12" maxlength="16" ng-change="process();" />
+
+<div class="row-fluid">
+	<div class="span4">
+		<h2>ASCII-HEX Table</h2>
+		<asciihex-Table p="k"></asciihex-Table>
+	</div>
+	<div class="span8">
+		<h2>Key Matrix</h2>
+		<hex-grid hexobj="k"></hex-grid>
+	</div>
+</div>
