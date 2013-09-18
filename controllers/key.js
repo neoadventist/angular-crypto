@@ -16,7 +16,7 @@ app.controller('key', function ($scope, $timeout, $filter,sharedData) {
                 for(i=0;i<m.length;i++){
                         $scope.k.push({ascii:m[i],hex:asciiToHex(m[i])});
                 }
-
+		sharedData.setKey($scope.k); 
         }
 	$scope.state = sharedData.getMessage(); 
 });
