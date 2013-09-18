@@ -1,4 +1,4 @@
-app.controller('key', function ($scope, $timeout, $filter) {
+app.controller('key', function ($scope, $timeout, $filter,sharedData) {
 		$scope.header="Key!";
         var asciiToHex = function(ascii){
                 return ascii.charCodeAt(0).toString(16);
@@ -18,4 +18,5 @@ app.controller('key', function ($scope, $timeout, $filter) {
                 }
 
         }
+	$scope.state = sharedData.getMessage(); 
 });
