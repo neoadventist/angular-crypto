@@ -1,4 +1,4 @@
 angular-crypto
 ==============
 
-A fun way to learn cryptography using Angular JS
+A fun way to learn AES cryptography using Angular JS!
