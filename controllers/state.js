@@ -71,4 +71,40 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 
 	};
 
+	var shiftForward = function(originalArray,cut,paste){
+		//copy original array to the variable we're going to manipulate
+		var array = []; 
+		for (var i=0;i<originalArray.length;i++){
+			array[i]=originalArray[i]; 
+		}
+		var arrayLength = array.length;
+		var a= array.splice(cut,1); 
+		var b=[];
+		//rebuild original array before splice, place the cut value into the paste position in this new array 
+		for(i=0;i<arrayLength;i++){
+			if(i<paste){
+				b[i]=array[i];
+			}else if (i==paste){
+				b[i]=a[0];
+			}else{
+				b[i]=array[i-1];
+			}
+		}
+		return b; 
+	};
+	
+	var shiftRows = function(){
+		//var matrix = $scope.m; 
+		var matrix = ["00","01","02","03","10","11","12","13","20","21","22","23","30","31","32","33"];
+		var rowTotal = 4;
+		var currentRow =0;
+		for(i=0;i<matrix.length;i++){
+			if(i%4==1){
+				currentRow++;
+			}
+			
+		}
+		return currentRow; 
+	};
+
 });
