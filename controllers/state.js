@@ -14,6 +14,7 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	
 	$scope.m = [];
 	$scope.mShift = [];
+	$scope.mSbox = [];
 
 	$scope.process = function(){
 		$scope.m = [];
@@ -23,6 +24,7 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		}
 		sharedData.setMessage($scope.m);
 		$scope.mShift = shiftRows($scope.m);
+		$scope.mSbox = subBytes($scope.mShift);
 	}
 	
 	console.log($scope.m);
@@ -48,7 +50,7 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		}
 		return hex; 
 	}
-	var subBytes = function(byte){
+	var subByte = function(byte){
 		var byteArray = byte.split('');
 		var x = toDecimal(byteArray[0]);
 		var y = toDecimal(byteArray[1]);
@@ -73,7 +75,13 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		return sBox[x][y];
 
 	};
-
+	var subBytes = function(array){
+		var result = [];
+		for(i=0;i<array.length;i++){
+			result.push({ascii:array[i].ascii,hex:subByte(array[i].hex)});
+		}
+		return result; 
+	};
 	var shiftForward = function(originalArray,cut,paste){
 		//copy original array to the variable we're going to manipulate
 		var array = []; 
@@ -113,8 +121,6 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 				a=shiftForward(a,i,i+3);
 			}
 				matrix=a;
-			console.log(matrix);
-	
 		}
 		return matrix; 
 	};
