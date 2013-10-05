@@ -93,18 +93,27 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		return b; 
 	};
 	
-	var shiftRows = function(){
-		//var matrix = $scope.m; 
-		var matrix = ["00","01","02","03","10","11","12","13","20","21","22","23","30","31","32","33"];
-		var rowTotal = 4;
-		var currentRow =0;
-		for(i=0;i<matrix.length;i++){
-			if(i%4==1){
-				currentRow++;
-			}
-			
+	var shiftRows = function(state){
+		var matrix=[];
+		for(i=0;i<state.length;i++){
+			matrix[i]=state[i];
 		}
-		return currentRow; 
+		/* increment every five cells, shifting forward every fifth cell forward once and wrapping 
+		 * around it every five cells. thus turning something that looks like this:
+		 * ["00", "01", "02", "03", "10", "11", "12", "13", "20", "21", "22", "23", "30", "31", "32", "33"]
+		 * into this: 
+		 * ["00", "01", "02", "03", "11", "12", "13", "10", "22", "23", "20", "21", "33", "30", "31", "32"]
+		 */
+		for(i=0,j=0;i<matrix.length;i=i+4,j++){
+				a=matrix;
+			for(k=0;k<j;k++){
+				a=shiftForward(a,i,i+3);
+			}
+				matrix=a;
+			console.log(matrix);
+	
+		}
+		return matrix; 
 	};
 
 });
