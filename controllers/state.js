@@ -13,13 +13,16 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	
 	
 	$scope.m = [];
+	$scope.mShift = [];
+
 	$scope.process = function(){
 		$scope.m = [];
 		m = $scope.message.split('');
 		for(i=0;i<$scope.message.length;i++){
 			$scope.m.push({ascii:m[i],hex:asciiToHex(m[i])});
 		}
-		sharedData.setMessage($scope.m); 
+		sharedData.setMessage($scope.m);
+		$scope.mShift = shiftRows($scope.m);
 	}
 	
 	console.log($scope.m);
