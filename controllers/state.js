@@ -11,6 +11,12 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		return String.fromCharCode(parseInt(n, 16));
 	}
 	
+	var hexTobinary = function(hex){
+		hex = "0x"+hex;
+		return Number(Number(hex).toString(2)); 
+	};
+	
+	
 	
 	$scope.m = [];
 	$scope.mShift = [];
