@@ -138,5 +138,15 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		}
 		return matrix; 
 	};
+	
+	var eightBit = function(bin){
+		//makes sure the binary number is eight bits in length
+		b = bin.split('');
+		for(i=b.length;i<8;i++){
+			b.unshift("0");
+		}
+		b = b.join("");
+		return b; 
+	};
 
 });
