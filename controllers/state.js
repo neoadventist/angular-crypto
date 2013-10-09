@@ -5,11 +5,11 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	$scope.ok="OK";	
 	var asciiToHex = function(ascii){
 		return ascii.charCodeAt(0).toString(16);
-	}
+	};
 	
 	var hexToascii = function(hex){
 		return String.fromCharCode(parseInt(n, 16));
-	}
+	};
 	
 	var hexTobinary = function(hex){
 		hex = "0x"+hex;
@@ -18,6 +18,10 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	
 	var binaryTodecimal = function(bin){
 		return parseInt(bin,2);
+	};
+	
+	var decimalTohex = function(num){
+		return num.toString(16);
 	};
 	
 	
