@@ -148,5 +148,14 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		b = b.join("");
 		return b; 
 	};
+	
+	var leftShift = function(bin){
+		//shifts the binary number one forward, adding a zero to the end;
+		b = bin.split('');
+		b.push('0');
+		b.shift();
+		b = b.join("");
+		return b;
+	};
 
 });
