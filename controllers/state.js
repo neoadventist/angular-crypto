@@ -13,7 +13,11 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	
 	var hexTobinary = function(hex){
 		hex = "0x"+hex;
-		return Number(Number(hex).toString(2)); 
+		return (Number(hex).toString(2)); 
+	};
+	
+	var binaryTodecimal = function(bin){
+		return parseInt(bin,2);
 	};
 	
 	
