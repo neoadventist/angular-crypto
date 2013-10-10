@@ -154,8 +154,38 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		b = bin.split('');
 		b.push('0');
 		b.shift();
-		b = b.join("");
+		b = b.join(""); 
 		return b;
+	};
+	
+	var bitMultX = function(hex){
+		/*
+		 * multiplication of a value by x (ie. by 02) can be implemented as a 1-bit left shift 
+		 * followed by a conditional bitwise XOR with (0001 1011) if the leftmost bit of the 
+		 * original value (before the shift) is 1.
+		 */
+		left = hexTobinary(hex);
+		if(left[0]==1){
+			x = hexTobinary(decimalTohex(binaryTodecimal(leftShift(eightBit(hexTobinary(hex)))) ^ 27));
+		}
+		return x; 
+	};
+	
+	//galois field mulitiplation
+	
+	var galois = {
+		addition:function(bina,binb){
+			bina=bina.split('');
+			binb=binb.split('');
+			binc=[];
+			for(i=0;i<bina.length;i++){
+				binc[i]=parseInt(bina[i] ^ binb[i],2);
+			}
+			return binc;
+		},
+		multiplication:function(bin){
+		
+		}
 	};
 
 });
