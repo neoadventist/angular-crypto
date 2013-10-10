@@ -175,15 +175,15 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	
 	var galois = {
 		addition:function(bina,binb){
-			bina=bina.split('');
-			binb=binb.split('');
+			bina=eightBit(bina).split('');
+			binb=eightBit(binb).split('');
 			binc=[];
 			for(i=0;i<bina.length;i++){
 				binc[i]=parseInt(bina[i] ^ binb[i],2);
 			}
 			return binc;
 		},
-		multiplication:function(bin){
+		multiplication:function(bina,binb){
 		
 		}
 	};
