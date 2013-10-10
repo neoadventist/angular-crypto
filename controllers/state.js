@@ -158,6 +158,15 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		return b;
 	};
 	
+	var rightShift = function(bin){
+		//shifts the binary number one backward, adding a zero to the beginning;
+		b = bin.split('');
+		b.unshift('0');
+		b.splice(-1,1);
+		a = b.join(""); 
+		return a;			
+	};
+	
 	var bitMultX = function(hex){
 		/*
 		 * multiplication of a value by x (ie. by 02) can be implemented as a 1-bit left shift 
@@ -184,7 +193,7 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			return binc;
 		},
 		multiplication:function(bina,binb){
-		
+			
 		}
 	};
 
