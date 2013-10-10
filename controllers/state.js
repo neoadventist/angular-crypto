@@ -162,9 +162,8 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		//shifts the binary number one backward, adding a zero to the beginning;
 		b = bin.split('');
 		b.unshift('0');
-		b.splice(-1,1);
-		a = b.join(""); 
-		return a;			
+		b.splice(-1,1); 
+		return b.join("");			
 	};
 	
 	var bitMultX = function(hex){
