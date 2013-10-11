@@ -192,8 +192,39 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			return binc;
 		},
 		multiplication:function(bina,binb){
-			
-		}
+			bina=eightBit(bina);
+			binb=eightBit(binb);
+			p = 0; 
+			for(i=0;i<8;i++){
+				console.log("P-->"+p+"\n"+"A-->"+(bina)+"\n"+"B-->"+(binb));
+				
+				if(binb[7]==1){
+					p = p ^ (binaryTodecimal(bina));
+					console.log("B="+binb+" binb[7]="+binb[7]+" P="+p)
+				}
+				highBit = bina[0];
+				bina = (leftShift(bina));
+				console.log("P-->"+p+"\n"+"A-->"+(bina)+"\n"+"B-->"+(binb));
+				
+				console.log("HB:"+highBit);
+				
+				if(highBit==1){
+					hexA = binaryTodecimal(bina);
+					xor = hexA ^ 27;
+					console.log("XOR="+xor+"= A in Decimal:"+hexA+"^27")
+					bina = (hexTobinary(decimalTohex(xor)));
+				}
+				
+				binb = (rightShift(binb));
+				
+				
+				if(binaryTodecimal(binb)==0){
+					break;
+				}
+				
+			}
+			return eightBit(hexTobinary(decimalTohex(p))); 
+		}	
 	};
 
 });
