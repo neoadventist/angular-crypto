@@ -191,40 +191,43 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			}
 			return binc;
 		},
-		multiplication:function(bina,binb){
-			bina=eightBit(bina);
-			binb=eightBit(binb);
-			p = 0; 
-			for(i=0;i<8;i++){
-				console.log("P-->"+p+"\n"+"A-->"+(bina)+"\n"+"B-->"+(binb));
-				
-				if(binb[7]==1){
+		multiplication : function(bina, binb) {
+			bina = eightBit(bina);
+			binb = eightBit(binb);
+			p = 0;
+			for (i = 0; i < 8; i++) {
+
+				if (binb[7] == 1) {
 					p = p ^ (binaryTodecimal(bina));
-					console.log("B="+binb+" binb[7]="+binb[7]+" P="+p)
 				}
 				highBit = bina[0];
 				bina = (leftShift(bina));
-				console.log("P-->"+p+"\n"+"A-->"+(bina)+"\n"+"B-->"+(binb));
-				
-				console.log("HB:"+highBit);
-				
-				if(highBit==1){
+
+				if (highBit == 1) {
 					hexA = binaryTodecimal(bina);
 					xor = hexA ^ 27;
-					console.log("XOR="+xor+"= A in Decimal:"+hexA+"^27")
 					bina = (hexTobinary(decimalTohex(xor)));
 				}
-				
+
 				binb = (rightShift(binb));
-				
-				
-				if(binaryTodecimal(binb)==0){
+
+				if (binaryTodecimal(binb) == 0) {
 					break;
 				}
-				
+
 			}
-			return eightBit(hexTobinary(decimalTohex(p))); 
+			return eightBit(hexTobinary(decimalTohex(p)));
 		}	
 	};
 
+	row = [["02","d4"],["03","bf"],["01","5d"],["01","30"]];
+	var computeRow = function(row){
+		sum = 0; 
+		for(m=0;m<row.length;m++){
+			product = galois.multiplication(hexTobinary(row[m][0]),hexTobinary(row[m][1]));
+			product = binaryTodecimal(product);
+			sum = sum ^ product; 
+		}
+		return decimalTohex(sum);
+	};
 });
