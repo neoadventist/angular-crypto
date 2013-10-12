@@ -27,15 +27,14 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	
 	
 	$scope.m = [];
-	$scope.mShift = [];
-	$scope.mSbox = [];
-	$scope.mMix = [];
+	$scope.mSubBytes = [];
+	$scope.mShiftRows = [];
+	$scope.mMixColumns = [];
 
 	$scope.process = function(){
-		$scope.m = [];
-		$scope.mShift = [];
-		$scope.mSbox = [];
-		$scope.mMix = [];
+		$scope.mSubBytes = [];
+		$scope.mShiftRows = [];
+		$scope.mMixColumns = [];
 		m = $scope.message.split('');
 		for(i=0;i<$scope.message.length;i++){
 			$scope.m.push({ascii:m[i],hex:asciiToHex(m[i])});
@@ -44,9 +43,11 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			$scope.m.push({ascii:"0",hex:"00"});
 		}
 		sharedData.setMessage($scope.m);
-		$scope.mShift = shiftRows($scope.m);
-		$scope.mSbox = subBytes($scope.mShift);
-		$scope.mMix = mixColumns($scope.mSbox);
+		
+		$scope.mSubBytes = subBytes($scope.m);
+		$scope.mShiftRows = shiftRows($scope.mSubBytes);
+		$scope.mMixColumns = mixColumns($scope.mShiftRows);
+		
 	}
 	
 	console.log($scope.m);
