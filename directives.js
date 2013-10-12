@@ -112,7 +112,7 @@ app.directive('hexGrid', function() {
 				for(m=0;m<4;m++){
 					scope.grid[m] = [];
 					for(n=0;n<4;n++){
-						scope.grid[m][n]=blockmessage[n][m];	
+						scope.grid[m][n]=blockmessage[m][n];	
 					}				
 				}
 			},true);
