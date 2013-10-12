@@ -29,9 +29,13 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	$scope.m = [];
 	$scope.mShift = [];
 	$scope.mSbox = [];
+	$scope.mMix = [];
 
 	$scope.process = function(){
 		$scope.m = [];
+		$scope.mShift = [];
+		$scope.mSbox = [];
+		$scope.mMix = [];
 		m = $scope.message.split('');
 		for(i=0;i<$scope.message.length;i++){
 			$scope.m.push({ascii:m[i],hex:asciiToHex(m[i])});
@@ -39,6 +43,7 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		sharedData.setMessage($scope.m);
 		$scope.mShift = shiftRows($scope.m);
 		$scope.mSbox = subBytes($scope.mShift);
+		$scope.mMix = mixColumns($scope.mSbox);
 	}
 	
 	console.log($scope.m);
@@ -229,5 +234,37 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			sum = sum ^ product; 
 		}
 		return decimalTohex(sum);
+	};
+	
+	var mixColumns = function(m){
+		var idMatrix = [2,3,1,1,1,2,3,1,1,1,2,3,3,1,1,2];
+		//var m = [{ascii:"a", hex:"61", $$hashKey:"3XU"}, {ascii:"b", hex:"d4", $$hashKey:"3XX"}, {ascii:"c", hex:"63", $$hashKey:"3Y0"}, {ascii:"d", hex:"64", $$hashKey:"3Y3"}, {ascii:"e", hex:"65", $$hashKey:"3Y6"}, {ascii:"f", hex:"bf", $$hashKey:"3Y9"}, {ascii:"g", hex:"67", $$hashKey:"3YC"}, {ascii:"h", hex:"68", $$hashKey:"3YF"}, {ascii:"i", hex:"69", $$hashKey:"3YI"}, {ascii:"j", hex:"5d", $$hashKey:"3YL"}, {ascii:"k", hex:"6b", $$hashKey:"3YO"}, {ascii:"l", hex:"6c", $$hashKey:"3YR"}, {ascii:"m", hex:"6d", $$hashKey:"3YU"}, {ascii:"n", hex:"30", $$hashKey:"3YX"}, {ascii:"o", hex:"6f", $$hashKey:"3Z0"}, {ascii:"p", hex:"70", $$hashKey:"3Z3"}];
+		var n = [];
+		for(copy=0;copy<m.length;copy++){
+			n[copy]=m[copy];
+		}
+		for(w=0;w<4;w++){
+			var c = ["d4","bf","5d","30"];
+			c[0]=m[w+0].hex;
+			c[1]=m[w+4].hex;
+			c[2]=m[w+8].hex;
+			c[3]=m[w+12].hex;
+			var result = [];
+			for(x=0;x<16;x=4+x){
+				column = [["",""],["",""],["",""],["",""]];
+				for (y=0;y<c.length;y++){
+					column[y][0]=idMatrix[y+x];
+					column[y][1]=c[y];
+				}
+				
+				result[x/4]=computeRow(column);
+
+			}
+			n[w+0].hex=result[0];
+			n[w+4].hex=result[1];
+			n[w+8].hex=result[2];
+			n[w+12].he=result[3];
+		}
+		return n; 
 	};
 });
