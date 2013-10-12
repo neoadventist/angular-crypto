@@ -40,6 +40,9 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		for(i=0;i<$scope.message.length;i++){
 			$scope.m.push({ascii:m[i],hex:asciiToHex(m[i])});
 		}
+		for(i=$scope.message.length;i<16;i++){
+			$scope.m.push({ascii:"0",hex:"00"});
+		}
 		sharedData.setMessage($scope.m);
 		$scope.mShift = shiftRows($scope.m);
 		$scope.mSbox = subBytes($scope.mShift);
@@ -243,6 +246,7 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 		for(copy=0;copy<m.length;copy++){
 			n[copy]=m[copy];
 		}
+		
 		for(w=0;w<4;w++){
 			var c = ["d4","bf","5d","30"];
 			c[0]=m[w+0].hex;
@@ -260,11 +264,13 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 				result[x/4]=computeRow(column);
 
 			}
-			n[w+0].hex=result[0];
-			n[w+4].hex=result[1];
-			n[w+8].hex=result[2];
-			n[w+12].he=result[3];
+			
+			n[w+0] =  ({ascii:m[w+0].ascii,hex:result[0]});
+			n[w+4] =  ({ascii:m[w+4].ascii,hex:result[1]});
+			n[w+8] =  ({ascii:m[w+8].ascii,hex:result[2]});
+			n[w+12] = ({ascii:m[w+12].ascii,hex:result[3]});
 		}
+		console.log(n);
 		return n; 
 	};
 });
