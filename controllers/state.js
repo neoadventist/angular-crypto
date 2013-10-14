@@ -225,9 +225,11 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			}
 			return eightBit(hexTobinary(decimalTohex(p)));
 		},
-		division:function(){
-			a = [1,1,1,1,0]; //what you're trying to reduce
-			b = [1,0,1,1]; //what you're reducing by
+		division:function(bina,binb){
+			a = (bina).split('');
+			b = (binb).split('');
+			//a = [1,1,1,1,0]; //what you're trying to reduce
+			//b = [1,0,1,1]; //what you're reducing by
 			c = []; 
 			while(true){
 				for(i=0;i<b.length;i++){
@@ -236,20 +238,35 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 				a = a.slice(b.length);
 				p = a.length - b.length; 
 
-				//nsole.log("A:"+a+"\nB:"+b+"\nC:"+c);
+				console.log("A:"+a+"\nB:"+b+"\nC:"+c);
 				c.push(a[0]);
 				c.shift();
-				//console.log("A:"+a+"\nB:"+b+"\nC:"+c);
+				console.log("A:"+a+"\nB:"+b+"\nC:"+c);
 				if(a.length==0){
 					break;
 				}
 				a = c;
 
 			}
-			return c;	
+			return c.join("");	
 		}
 	};
+	var bTrunc = function(bin){
+		bin = bin.split('');
+		l = bin.length;
+		for(c=0;c<=l;c++){
+			//console.log(c+"/"+l+"\tbin[0]="+bin[0]+"\t"+bin);
 
+			if(bin[0]=="0"){
+				bin.shift();
+			}
+			if(bin[0]=="1"){
+				break;
+			}
+			
+		}
+		return bin.join('');
+	};
 	row = [["02","d4"],["03","bf"],["01","5d"],["01","30"]];
 	var computeRow = function(row){
 		sum = 0; 
