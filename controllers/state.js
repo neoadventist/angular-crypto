@@ -1,8 +1,34 @@
 app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	var name=sharedData.getName();
 	$scope.header=name.name;
-	console.log(name);
+
 	$scope.ok="OK";	
+	
+	$scope.m = [];
+	$scope.mSubBytes = [];
+	$scope.mShiftRows = [];
+	$scope.mMixColumns = [];
+
+	$scope.process = function(){
+		$scope.m = [];
+		$scope.mSubBytes = [];
+		$scope.mShiftRows = [];
+		$scope.mMixColumns = [];
+		m = $scope.message.split('');
+		for(i=0;i<$scope.message.length;i++){
+			$scope.m.push({ascii:m[i],hex:asciiToHex(m[i])});
+		}
+		for(i=$scope.message.length;i<16;i++){
+			$scope.m.push({ascii:"0",hex:"00"});
+		}
+		sharedData.setMessage($scope.m);
+		
+		$scope.mSubBytes = subBytes($scope.m);
+		$scope.mShiftRows = shiftRows($scope.mSubBytes);
+		$scope.mMixColumns = mixColumns($scope.mShiftRows);
+		
+	};
+	
 	var asciiToHex = function(ascii){
 		return ascii.charCodeAt(0).toString(16);
 	};
@@ -23,34 +49,6 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 	var decimalTohex = function(num){
 		return num.toString(16);
 	};
-	
-	
-	
-	$scope.m = [];
-	$scope.mSubBytes = [];
-	$scope.mShiftRows = [];
-	$scope.mMixColumns = [];
-
-	$scope.process = function(){
-		$scope.mSubBytes = [];
-		$scope.mShiftRows = [];
-		$scope.mMixColumns = [];
-		m = $scope.message.split('');
-		for(i=0;i<$scope.message.length;i++){
-			$scope.m.push({ascii:m[i],hex:asciiToHex(m[i])});
-		}
-		for(i=$scope.message.length;i<16;i++){
-			$scope.m.push({ascii:"0",hex:"00"});
-		}
-		sharedData.setMessage($scope.m);
-		
-		$scope.mSubBytes = subBytes($scope.m);
-		$scope.mShiftRows = shiftRows($scope.mSubBytes);
-		$scope.mMixColumns = mixColumns($scope.mShiftRows);
-		
-	}
-	
-	console.log($scope.m);
 
 	var toDecimal = function(hex){
 		if(hex=="a"){
@@ -226,7 +224,30 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 
 			}
 			return eightBit(hexTobinary(decimalTohex(p)));
-		}	
+		},
+		division:function(){
+			a = [1,1,1,1,0]; //what you're trying to reduce
+			b = [1,0,1,1]; //what you're reducing by
+			c = []; 
+			while(true){
+				for(i=0;i<b.length;i++){
+					c[i]=a[i]^b[i];
+				}
+				a = a.slice(b.length);
+				p = a.length - b.length; 
+
+				//nsole.log("A:"+a+"\nB:"+b+"\nC:"+c);
+				c.push(a[0]);
+				c.shift();
+				//console.log("A:"+a+"\nB:"+b+"\nC:"+c);
+				if(a.length==0){
+					break;
+				}
+				a = c;
+
+			}
+			return c;	
+		}
 	};
 
 	row = [["02","d4"],["03","bf"],["01","5d"],["01","30"]];
@@ -261,8 +282,9 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 					column[y][0]=idMatrix[y+x];
 					column[y][1]=c[y];
 				}
-				
+				console.log("C:\t"+column);
 				result[x/4]=computeRow(column);
+				
 
 			}
 			
@@ -271,7 +293,7 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			n[w+8] =  ({ascii:m[w+8].ascii,hex:result[2]});
 			n[w+12] = ({ascii:m[w+12].ascii,hex:result[3]});
 		}
-		console.log(n);
+		
 		return n; 
 	};
 });
