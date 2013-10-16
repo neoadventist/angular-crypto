@@ -226,8 +226,8 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			return eightBit(hexTobinary(decimalTohex(p)));
 		},
 		division:function(bina,binb){
-			a = (bina).split('');
-			b = (binb).split('');
+			a = bTrunc(bina).split('');
+			b = bTrunc(binb).split('');
 			//a = [1,1,1,1,0]; //what you're trying to reduce
 			//b = [1,0,1,1]; //what you're reducing by
 			c = [];
@@ -251,7 +251,7 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			        a[ii]=c[ii];
 			    }
 			}
-			return c.join("");	
+			return bTrunc(c.join(""));	
 		}
 	};
 	var bTrunc = function(bin){
