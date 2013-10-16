@@ -230,23 +230,26 @@ app.controller('state', function ($scope, $timeout, $filter,sharedData) {
 			b = (binb).split('');
 			//a = [1,1,1,1,0]; //what you're trying to reduce
 			//b = [1,0,1,1]; //what you're reducing by
-			c = []; 
+			c = [];
+			d = a.slice(b.length);
+
 			while(true){
-				for(i=0;i<b.length;i++){
-					c[i]=a[i]^b[i];
-				}
-				a = a.slice(b.length);
-				p = a.length - b.length; 
+			    for(i=0;i<b.length;i++){
+			        c[i]=a[i]^b[i];
+			    };
+			    
+			    //console.log("A:"+a+"\tB:"+b+"\tC:"+c+"\tD:"+d);
+			    if(d.length==0){
+			        break;
+			    }
+			    c.shift();
+			    c[3]=d[0];
+			    d.shift();
 
-				console.log("A:"+a+"\nB:"+b+"\nC:"+c);
-				c.push(a[0]);
-				c.shift();
-				console.log("A:"+a+"\nB:"+b+"\nC:"+c);
-				if(a.length==0){
-					break;
-				}
-				a = c;
-
+			    a = [];
+			    for(var ii=0;ii<c.length;ii++){
+			        a[ii]=c[ii];
+			    }
 			}
 			return c.join("");	
 		}
